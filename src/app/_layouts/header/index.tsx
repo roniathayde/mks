@@ -1,19 +1,31 @@
+'use client'
+
+import { useContext } from 'react'
+
+import { ProductsContext } from '@/app/contexts/products-context'
+
 import { CartItemIcon } from './cart-item-icon'
 
 export function Header() {
+  const { productsCart } = useContext(ProductsContext)
+
+  console.log('aq ', productsCart.countCart)
+
   return (
-    <header className=" flex justify-between px-16 py-7 bg-[#0F52BA] ">
-      <div className="flex items-end gap-1 text-white text-4xl font-semibold">
+    <header className=" flex justify-between bg-[#0F52BA] px-16 py-7 ">
+      <div className="flex items-end gap-1 text-4xl font-semibold text-white">
         MKS
         <span className="text-xl font-light">Sistemas</span>
       </div>
 
       <button
         type="button"
-        className="rounded-lg gap-4 flex items-center hover:bg-slate-100 transition-colors bg-white p-3"
+        className="flex items-center gap-4 rounded-lg bg-white p-3 transition-colors hover:bg-slate-100"
       >
         <CartItemIcon />
-        <span className="text-lg font-bold">0</span>
+        <span className="text-lg font-bold">
+          {productsCart.countCart ?? '0'}
+        </span>
       </button>
     </header>
   )

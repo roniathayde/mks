@@ -1,8 +1,13 @@
+'use client'
+
 import Image from 'next/image'
-import { CartShoppingIcon } from './cart-shopping-icon'
+import { useContext } from 'react'
 import { toast } from 'sonner'
 
-interface CardItemShoppingProps {
+import { ProductsContext } from '../contexts/products-context'
+import { CartShoppingIcon } from './cart-shopping-icon'
+
+export interface CardItemShoppingProps {
   item: {
     brand: string
     createdAt: string
@@ -15,7 +20,7 @@ interface CardItemShoppingProps {
   }
 }
 
-interface Item {
+export interface Item {
   brand: string
   createdAt: string
   description: string
@@ -24,10 +29,40 @@ interface Item {
   name: string
   price: string
   updatedAt: string
+  quantity?: number
 }
 
 export function CardItemShopping({ item }: CardItemShoppingProps) {
+  const { setProductsCart } = useContext(ProductsContext)
+
   function handleAddItemOnCart(item: Item) {
+    setProductsCart((prev) => {
+      if (prev.items.some((element) => element.id === item.id)) {
+        toast.error('Produto já existe no carrinho', {
+          description: item.name,
+        })
+
+        const itemsCart = prev.items.map((element) => {
+          if (element.id === item.id) {
+            return {
+              ...element,
+              quantity: element.quantity + 1,
+            }
+          } else {
+            return { ...element }
+          }
+        })
+
+        return { ...prev, items: itemsCart }
+      } else {
+        const itemsCart = [...prev.items, { ...item, quantity: 1 }]
+
+        const countCartAfterAppend = itemsCart.length
+
+        return { ...prev, countCart: countCartAfterAppend, items: itemsCart }
+      }
+    })
+
     toast.success('Adicionado ao carrinho', {
       description: item.name,
     })
@@ -36,9 +71,10 @@ export function CardItemShopping({ item }: CardItemShoppingProps) {
   return (
     <div className="flex flex-col  items-center overflow-hidden rounded-lg pt-5 shadow-[0px_2px_8px_0px_rgb(0_0_0_/_13%)] ">
       <Image
-        width={111}
-        height={138}
+        width={128}
+        height={128}
         src={item.photo}
+        className="h-auto w-auto"
         alt="imagem do relógio de cria"
       />
 
@@ -62,7 +98,9 @@ export function CardItemShopping({ item }: CardItemShoppingProps) {
           {item.description}
         </span>
       </div>
+
       <button
+        type="button"
         onClick={() => handleAddItemOnCart(item)}
         className="mt-auto flex w-full items-center justify-center gap-4 bg-[#0F52BA] p-2 text-sm font-semibold uppercase text-white"
       >
