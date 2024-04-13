@@ -4,6 +4,7 @@ import './globals.css'
 import { Header } from './_layouts/header'
 import { Footer } from './_layouts/footer'
 import { ReactQueryProvider } from '@/assets/lib/react-query'
+import { Toaster } from 'sonner'
 
 const montserrat = Montserrat({ subsets: ['latin'] })
 
@@ -22,6 +23,7 @@ export default function RootLayout({
       <body className={`${montserrat.className}`}>
         <ReactQueryProvider>
           <Header />
+          <Toaster closeButton richColors />
           {children}
           <Footer />
         </ReactQueryProvider>

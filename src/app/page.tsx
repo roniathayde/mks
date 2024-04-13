@@ -3,9 +3,10 @@
 import { CardItemShopping } from './components/card-item-shopping'
 import { useQuery } from '@tanstack/react-query'
 import { getProducts } from '@/api/get-products'
+import { CartItemShoppingShimmer } from './components/cart-item-shopping-shimmer'
 
 export default function Home() {
-  const { data: result } = useQuery({
+  const { data: products, isLoading: loadingProducts } = useQuery({
     queryKey: ['orders'],
     queryFn: () =>
       getProducts({
@@ -16,16 +17,23 @@ export default function Home() {
       }),
   })
 
-  console.log('result : ', result)
-
   return (
     <>
-      <main className="flex justify-center py-28">
-        <section className="grid    grid-cols-4 gap-5">
-          {result?.products &&
-            result?.products.map((cardItem) => (
+      <main className="flex min-h-screen flex-col items-center justify-start py-28">
+        <section className="grid w-full max-w-[1080px]   grid-cols-4 gap-5">
+          {products?.products &&
+            products?.products.map((cardItem) => (
               <CardItemShopping key={cardItem.id} item={cardItem} />
             ))}
+
+          {loadingProducts &&
+            Array.from({ length: 8 }).map(() => {
+              return (
+                <>
+                  <CartItemShoppingShimmer key={new Date().toDateString()} />
+                </>
+              )
+            })}
         </section>
       </main>
     </>
