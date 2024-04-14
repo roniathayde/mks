@@ -8,6 +8,7 @@ import { ReactQueryProvider } from '@/assets/lib/react-query'
 
 import { Footer } from './_layouts/footer'
 import { Header } from './_layouts/header'
+import { DialogContextProvider } from './contexts/dialog-root-context'
 import { ProductsContextProvider } from './contexts/products-context'
 
 const montserrat = Montserrat({ subsets: ['latin'] })
@@ -27,10 +28,12 @@ export default function RootLayout({
       <body className={`${montserrat.className}`}>
         <ReactQueryProvider>
           <ProductsContextProvider>
-            <Header />
-            <Toaster closeButton richColors />
-            {children}
-            <Footer />
+            <DialogContextProvider>
+              <Header />
+              <Toaster closeButton richColors />
+              {children}
+              <Footer />
+            </DialogContextProvider>
           </ProductsContextProvider>
         </ReactQueryProvider>
       </body>

@@ -1,6 +1,5 @@
 'use client'
 
-import * as Dialog from '@radix-ui/react-dialog'
 import { useQuery } from '@tanstack/react-query'
 
 import { getProducts } from '@/api/get-products'
@@ -23,20 +22,18 @@ export default function Home() {
 
   return (
     <>
-      <Dialog.Root>
-        <main className="relative flex min-h-screen flex-col items-center justify-start py-28">
-          <section className="grid w-full max-w-[1080px]   grid-cols-4 gap-5">
-            {products?.products &&
-              products?.products.map((cardItem) => (
-                <CardItemShopping key={cardItem.id} item={cardItem} />
-              ))}
+      <main className="relative flex min-h-screen flex-col items-center justify-start px-4 py-28">
+        <section className="flex w-full max-w-[280px] flex-col items-stretch gap-5  lg:grid lg:max-w-[1080px] lg:grid-cols-4">
+          {products?.products &&
+            products?.products.map((cardItem) => (
+              <CardItemShopping key={cardItem.id} item={cardItem} />
+            ))}
 
-            {loadingProducts && <CartItemShoppingShimmer />}
-          </section>
+          {loadingProducts && <CartItemShoppingShimmer />}
+        </section>
 
-          <CartOffcanvas />
-        </main>
-      </Dialog.Root>
+        <CartOffcanvas />
+      </main>
     </>
   )
 }

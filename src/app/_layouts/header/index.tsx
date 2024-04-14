@@ -1,5 +1,6 @@
 'use client'
 
+import * as Dialog from '@radix-ui/react-dialog'
 import { useContext } from 'react'
 
 import { ProductsContext } from '@/app/contexts/products-context'
@@ -18,15 +19,17 @@ export function Header() {
         <span className="text-xl font-light">Sistemas</span>
       </div>
 
-      <button
-        type="button"
-        className="flex items-center gap-4 rounded-lg bg-white p-3 transition-colors hover:bg-slate-100"
-      >
-        <CartItemIcon />
-        <span className="text-lg font-bold">
-          {productsCart.countCart ?? '0'}
-        </span>
-      </button>
+      <Dialog.Trigger asChild>
+        <button
+          type="button"
+          className="flex items-center gap-4 rounded-lg bg-white p-3 transition-colors hover:bg-slate-100"
+        >
+          <CartItemIcon />
+          <span className="text-lg font-bold">
+            {productsCart.countCart ?? '0'}
+          </span>
+        </button>
+      </Dialog.Trigger>
     </header>
   )
 }
