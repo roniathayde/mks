@@ -87,7 +87,6 @@ export function CartOffcanvas() {
     })
     const qtdItem = item.quantity
     if (qtdItem) {
-      // 5000 - 5000
       setTotal((prev) => prev - Number(item.price) * qtdItem)
     }
   }
@@ -106,15 +105,19 @@ export function CartOffcanvas() {
       {open?.open && (
         <Dialog.Portal forceMount>
           <motion.div
-            className="flex flex-col"
-            transition={{ duration: 3, times: [0, 0.2, 1] }}
-            initial={{ width: 0 }}
-            animate={{
-              width: 300,
+            className="fixed right-0 top-0 z-30 flex flex-col "
+            initial={{ x: '500px', y: 0 }}
+            animate={{ x: 0, y: 0 }}
+            exit={{ x: '500px', y: 0 }}
+            transition={{
+              ease: 'ease-in',
+              x: { duration: 1 },
+              type: 'spring',
+              stiffness: 100,
             }}
           >
             <Dialog.Overlay className="fixed top-0 z-10 min-h-screen min-w-full bg-black/20 " />
-            <Dialog.Content className="fixed right-0 top-0 z-20 min-h-screen w-[500px] bg-[#0F52BA] px-12 pt-9">
+            <Dialog.Content className="fixed right-0 top-0 z-20 min-h-screen w-4/5 bg-[#0F52BA]  px-12 pt-9 shadow-[-11px_0px_8px_2px_#00000029] lg:w-[500px]">
               <Dialog.Title className="mb-4 max-w-[180px] text-2xl font-semibold text-white">
                 Meu carrinho de compras
               </Dialog.Title>
@@ -129,18 +132,18 @@ export function CartOffcanvas() {
                 </button>
               </Dialog.Close>
 
-              <div className=" flex max-h-[60vh] flex-col gap-5 overflow-y-auto overflow-x-hidden p-1">
+              <div className=" tall:max-h-[60vh] flex max-h-[50vh] flex-col gap-5 overflow-y-auto overflow-x-hidden p-1 md:max-h-[45vh]">
                 {productsCart.items.map((item) => (
                   <div
                     key={item.id}
-                    className="gap relative grid grid-cols-4  items-center justify-center rounded-lg bg-white px-2 py-5"
+                    className="gap relative flex flex-col items-center justify-center  rounded-lg bg-white px-2 py-5 lg:grid lg:grid-cols-4"
                   >
                     <Image
                       src={item.photo}
-                      height={46}
-                      width={46}
+                      height={300}
+                      width={300}
                       alt="product image"
-                      className="size-7"
+                      className="size-20"
                     />
                     <button
                       onClick={() => handleRemoveItemCart(item)}
@@ -149,35 +152,37 @@ export function CartOffcanvas() {
                       <X className="size-3 text-white" />
                     </button>
                     <span> {item.name}</span>
-                    <div className="flex flex-col">
-                      <span className="text-xs">Qtd.</span>
-                      <div className="flex justify-around  rounded border border-[#BFBFBF] p-1">
-                        <button
-                          onClick={() => handleDecrementQuantity(item)}
-                          className="flex  flex-1 items-center justify-center rounded border-r px-1 transition-colors hover:bg-slate-100"
-                        >
-                          -
-                        </button>
-                        <span className="flex flex-1 items-center justify-center px-1">
-                          {item.quantity}
-                        </span>
-                        <button
-                          onClick={() => handleIncreaseQuantity(item)}
-                          className="flex  flex-1 items-center justify-center rounded border-l px-1 transition-colors hover:bg-slate-100"
-                        >
-                          +
-                        </button>
+                    <div className="col-span-2 flex w-full items-center gap-1">
+                      <div className="flex flex-1 flex-col">
+                        <span className="hidden text-xs lg:block">Qtd.</span>
+                        <div className="flex justify-around  rounded border border-[#BFBFBF] p-1">
+                          <button
+                            onClick={() => handleDecrementQuantity(item)}
+                            className="flex  flex-1 items-center justify-center rounded border-r px-1 transition-colors hover:bg-slate-100"
+                          >
+                            -
+                          </button>
+                          <span className="flex flex-1 items-center justify-center px-1">
+                            {item.quantity}
+                          </span>
+                          <button
+                            onClick={() => handleIncreaseQuantity(item)}
+                            className="flex  flex-1 items-center justify-center rounded border-l px-1 transition-colors hover:bg-slate-100"
+                          >
+                            +
+                          </button>
+                        </div>
                       </div>
+                      <span className="flex-1 rounded-md bg-[#373737] px-2 py-1 text-center  text-base font-bold  text-white lg:bg-transparent lg:px-0.5 lg:text-black">
+                        {(Number(item.price) * item.quantity).toLocaleString(
+                          'pt-br',
+                          {
+                            style: 'currency',
+                            currency: 'BRL',
+                          },
+                        )}
+                      </span>
                     </div>
-                    <span className="px-0.5 text-center text-base font-bold">
-                      {(Number(item.price) * item.quantity).toLocaleString(
-                        'pt-br',
-                        {
-                          style: 'currency',
-                          currency: 'BRL',
-                        },
-                      )}
-                    </span>
                   </div>
                 ))}
 
@@ -193,7 +198,7 @@ export function CartOffcanvas() {
                   <span className="text-2xl font-bold text-white">Total:</span>
                   <span className="text-2xl font-bold text-white">{total}</span>
                 </div>
-                <button className="w-full bg-black py-9 text-lg font-bold text-white">
+                <button className=" btncustom w-full bg-black py-9 text-2xl  font-bold text-white">
                   Finalizar compra
                 </button>
               </footer>

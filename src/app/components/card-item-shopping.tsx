@@ -38,8 +38,8 @@ export function CardItemShopping({ item }: CardItemShoppingProps) {
   function handleAddItemOnCart(item: Item) {
     setProductsCart((prev) => {
       if (prev.items.some((element) => element.id === item.id)) {
-        toast.error('Produto já existe no carrinho', {
-          description: item.name,
+        toast.error(`Produto ${item.name} já existe no carrinho`, {
+          description: 'Quantidade do produto aumentada!',
         })
 
         const itemsCart = prev.items.map((element) => {
@@ -102,7 +102,7 @@ export function CardItemShopping({ item }: CardItemShoppingProps) {
       <button
         type="button"
         onClick={() => handleAddItemOnCart(item)}
-        className="mt-auto flex w-full items-center justify-center gap-4 bg-[#0F52BA] p-2 text-sm font-semibold uppercase text-white"
+        className="mt-auto  flex w-full items-center justify-center gap-4 bg-[#0F52BA] p-2 text-sm font-semibold uppercase text-white transition-colors hover:bg-[#0F52BA]/90"
       >
         <CartShoppingIcon /> Comprar
       </button>
