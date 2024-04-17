@@ -21,6 +21,7 @@ export function Header() {
 
       <Dialog.Trigger asChild>
         <button
+          data-testid="cart-button"
           type="button"
           className="flex items-center gap-4 rounded-lg bg-white p-3 transition-colors hover:bg-slate-100"
         >

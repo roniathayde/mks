@@ -95,7 +95,7 @@ export function CartOffcanvas() {
     let subtotalPerQuantity: number = 0
     productsCart.items.forEach((el) => {
       subtotalPerQuantity += Number(el.price) * el.quantity
-      console.log('aqui: ', subtotalPerQuantity)
+      // console.log('aqui: ', subtotalPerQuantity)
       setTotal(subtotalPerQuantity)
     })
   }, [productsCart])
@@ -132,7 +132,7 @@ export function CartOffcanvas() {
                 </button>
               </Dialog.Close>
 
-              <div className=" tall:max-h-[60vh] flex max-h-[50vh] flex-col gap-5 overflow-y-auto overflow-x-hidden p-1 md:max-h-[45vh]">
+              <div className=" flex max-h-[50vh] flex-col gap-5 overflow-y-auto overflow-x-hidden p-1 md:max-h-[45vh] tall:max-h-[60vh]">
                 {productsCart.items.map((item) => (
                   <div
                     key={item.id}
@@ -198,7 +198,10 @@ export function CartOffcanvas() {
                   <span className="text-2xl font-bold text-white">Total:</span>
                   <span className="text-2xl font-bold text-white">{total}</span>
                 </div>
-                <button className=" btncustom w-full bg-black py-9 text-2xl  font-bold text-white">
+                <button
+                  data-testid="finalize-purchase"
+                  className=" btncustom w-full bg-black py-9 text-2xl  font-bold text-white"
+                >
                   Finalizar compra
                 </button>
               </footer>
