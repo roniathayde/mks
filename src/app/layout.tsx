@@ -14,8 +14,38 @@ import { ProductsContextProvider } from './contexts/products-context'
 const montserrat = Montserrat({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'MKS Sistemas',
+  title: 'Produtos | MKS Sistemas',
   description: 'Suporte e serviços para computadores em São Paulo',
+  robots: {
+    follow: true,
+    index: true,
+  },
+  openGraph: {
+    images: ['https://mks-smoky.vercel.app/opengraph-image.jpg'],
+    authors: 'Roni Lucas',
+    countryName: 'Brazil',
+    emails: 'pontes014@gmail.com',
+    firstName: 'Roni',
+    lastName: 'Lucas',
+    locale: 'pt-br',
+  },
+  twitter: {
+    images: ['https://mks-smoky.vercel.app/opengraph-image.jpg'],
+    site: 'https://mks-smoky.vercel.app/',
+  },
+  icons: {
+    icon: '/favicon.ico',
+  },
+  keywords: [
+    'MKS Sistemas',
+    'MKS',
+    'Roni Lucas',
+    'Frontend',
+    'Backend',
+    'Fullstack',
+    'NextJS',
+    'ReactJS',
+  ],
 }
 
 export default function RootLayout({

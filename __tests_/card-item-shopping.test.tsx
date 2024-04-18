@@ -7,6 +7,8 @@ import { CardItemShopping } from '@/app/components/card-item-shopping'
 import { CartOffcanvas } from '@/app/components/cart-offcanvas'
 import { DialogContextProvider } from '@/app/contexts/dialog-root-context'
 import { ProductsContextProvider } from '@/app/contexts/products-context'
+import Home from '@/app/page'
+import { ReactQueryProvider } from '@/assets/lib/react-query'
 
 describe('<CardItemShopping />', () => {
   it('should render the card-item-shopping with all your elements', async () => {
@@ -157,5 +159,21 @@ describe('product in cart', () => {
 
     fireEvent.click(await screen.findByTestId('cart-button'), {})
     expect(await findByTestId('total-cart')).toBeInTheDocument()
+  })
+})
+
+describe('filter products', () => {
+  it('should filter exists', async () => {
+    const { findByTestId } = render(
+      <ReactQueryProvider>
+        <ProductsContextProvider>
+          <DialogContextProvider>
+            <Home />
+          </DialogContextProvider>
+        </ProductsContextProvider>
+      </ReactQueryProvider>,
+    )
+
+    expect(await findByTestId('filter-search')).toBeInTheDocument()
   })
 })

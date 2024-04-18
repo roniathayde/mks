@@ -13,7 +13,6 @@ interface ProductsCart {
   countCart: number
 }
 
-// Definimos um valor inicial vazio para o contexto
 const initialProductsCart: ProductsCart = {
   items: [],
   countCart: 0,
