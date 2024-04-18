@@ -18,6 +18,7 @@ export default function Home() {
         sortBy: 'id',
         orderBy: 'ASC',
       }),
+    staleTime: Infinity,
   })
 
   return (
