@@ -67,7 +67,7 @@ export function CardItemShopping({ item }: CardItemShoppingProps) {
       description: item.name,
     })
   }
-
+  // console.log('price: ', item.price)
   return (
     <div className="flex flex-col  items-center overflow-hidden rounded-lg pt-5 shadow-[0px_2px_8px_0px_rgb(0_0_0_/_13%)] ">
       <Image
@@ -83,10 +83,13 @@ export function CardItemShopping({ item }: CardItemShoppingProps) {
           <h2 className="max-w-[106px] text-base font-medium text-[#2C2C2C]">
             {item.brand}
             <br />
-            {item.name}
+            <span data-testid="product-name">{item.name}</span>
           </h2>
           <div className="flex items-center rounded-md bg-[#373737] px-2 py-1">
-            <span className="text-base font-bold text-white">
+            <span
+              data-testid="product-price"
+              className="text-base font-bold text-white"
+            >
               {Number(item.price).toLocaleString('pt-br', {
                 style: 'currency',
                 currency: 'BRL',
@@ -94,13 +97,17 @@ export function CardItemShopping({ item }: CardItemShoppingProps) {
             </span>
           </div>
         </div>
-        <span className=" max-w-48  text-xs font-light text-[#2C2C2C]">
+        <span
+          data-testid="product-description"
+          className=" max-w-48  text-xs font-light text-[#2C2C2C]"
+        >
           {item.description}
         </span>
       </div>
 
       <button
         type="button"
+        data-testid="product-button"
         onClick={() => handleAddItemOnCart(item)}
         className="mt-auto  flex w-full items-center justify-center gap-4 bg-[#0F52BA] p-2 text-sm font-semibold uppercase text-white transition-colors hover:bg-[#0F52BA]/90"
       >

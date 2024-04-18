@@ -95,7 +95,7 @@ export function CartOffcanvas() {
     let subtotalPerQuantity: number = 0
     productsCart.items.forEach((el) => {
       subtotalPerQuantity += Number(el.price) * el.quantity
-      console.log('aqui: ', subtotalPerQuantity)
+      // console.log('aqui: ', subtotalPerQuantity)
       setTotal(subtotalPerQuantity)
     })
   }, [productsCart])
@@ -132,10 +132,11 @@ export function CartOffcanvas() {
                 </button>
               </Dialog.Close>
 
-              <div className=" tall:max-h-[60vh] flex max-h-[50vh] flex-col gap-5 overflow-y-auto overflow-x-hidden p-1 md:max-h-[45vh]">
+              <div className=" flex max-h-[50vh] flex-col gap-5 overflow-y-auto overflow-x-hidden p-1 md:max-h-[45vh] tall:max-h-[60vh]">
                 {productsCart.items.map((item) => (
                   <div
                     key={item.id}
+                    data-testid="item-on-cart"
                     className="gap relative flex flex-col items-center justify-center  rounded-lg bg-white px-2 py-5 lg:grid lg:grid-cols-4"
                   >
                     <Image
@@ -196,9 +197,20 @@ export function CartOffcanvas() {
               <footer className="absolute bottom-0 left-0 flex w-full flex-col gap-10">
                 <div className="flex w-full justify-between px-12">
                   <span className="text-2xl font-bold text-white">Total:</span>
-                  <span className="text-2xl font-bold text-white">{total}</span>
+                  <span
+                    data-testid="total-cart"
+                    className="text-2xl font-bold text-white"
+                  >
+                    {total.toLocaleString('pt-br', {
+                      style: 'currency',
+                      currency: 'BRL',
+                    })}
+                  </span>
                 </div>
-                <button className=" btncustom w-full bg-black py-9 text-2xl  font-bold text-white">
+                <button
+                  data-testid="finalize-purchase"
+                  className=" btncustom w-full bg-black py-9 text-2xl  font-bold text-white"
+                >
                   Finalizar compra
                 </button>
               </footer>
