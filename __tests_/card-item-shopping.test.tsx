@@ -125,7 +125,7 @@ describe('product in cart', () => {
   it('should a new product in cart', async () => {
     userEvent.setup()
 
-    const { debug, findByTestId } = render(
+    const { findByTestId } = render(
       <ProductsContextProvider>
         <DialogContextProvider>
           <Header />
