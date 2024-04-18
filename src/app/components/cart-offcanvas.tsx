@@ -95,7 +95,6 @@ export function CartOffcanvas() {
     let subtotalPerQuantity: number = 0
     productsCart.items.forEach((el) => {
       subtotalPerQuantity += Number(el.price) * el.quantity
-      // console.log('aqui: ', subtotalPerQuantity)
       setTotal(subtotalPerQuantity)
     })
   }, [productsCart])

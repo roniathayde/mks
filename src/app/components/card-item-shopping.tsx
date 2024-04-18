@@ -67,7 +67,6 @@ export function CardItemShopping({ item }: CardItemShoppingProps) {
       description: item.name,
     })
   }
-  // console.log('price: ', item.price)
   return (
     <div className="flex flex-col  items-center overflow-hidden rounded-lg pt-5 shadow-[0px_2px_8px_0px_rgb(0_0_0_/_13%)] ">
       <Image

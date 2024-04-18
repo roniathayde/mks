@@ -7,7 +7,6 @@ interface InitialDialogTypes {
   open?: boolean
 }
 
-// Definimos um valor inicial vazio para o contexto
 const initialDialog: InitialDialogTypes = {
   open: false,
 }
