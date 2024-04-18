@@ -10,7 +10,7 @@ import { CartItemIcon } from './cart-item-icon'
 export function Header() {
   const { productsCart } = useContext(ProductsContext)
 
-  console.log('aq ', productsCart.countCart)
+  // console.log('aq ', productsCart.countCart)
 
   return (
     <header className="sticky top-0 z-10 flex justify-between bg-[#0F52BA] px-16 py-7 ">

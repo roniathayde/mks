@@ -136,6 +136,7 @@ export function CartOffcanvas() {
                 {productsCart.items.map((item) => (
                   <div
                     key={item.id}
+                    data-testid="item-on-cart"
                     className="gap relative flex flex-col items-center justify-center  rounded-lg bg-white px-2 py-5 lg:grid lg:grid-cols-4"
                   >
                     <Image
@@ -196,7 +197,15 @@ export function CartOffcanvas() {
               <footer className="absolute bottom-0 left-0 flex w-full flex-col gap-10">
                 <div className="flex w-full justify-between px-12">
                   <span className="text-2xl font-bold text-white">Total:</span>
-                  <span className="text-2xl font-bold text-white">{total}</span>
+                  <span
+                    data-testid="total-cart"
+                    className="text-2xl font-bold text-white"
+                  >
+                    {total.toLocaleString('pt-br', {
+                      style: 'currency',
+                      currency: 'BRL',
+                    })}
+                  </span>
                 </div>
                 <button
                   data-testid="finalize-purchase"

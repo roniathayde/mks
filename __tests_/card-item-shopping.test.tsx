@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { Toaster } from 'sonner'
 
@@ -97,47 +97,65 @@ describe('<CardItemShopping />', () => {
 })
 
 describe('product in cart', () => {
-  it('should a new product in cart', async () => {
-    const { findByTestId: findByTestIdCartItem } = render(
-      <CardItemShopping
-        item={{
-          brand: 'Apple',
-          createdAt: '01/01/1969',
-          description: 'Ótimos vídeos',
-          id: 1,
-          photo:
-            'https://mks-sistemas.nyc3.digitaloceanspaces.com/products/airpods.webp',
-          name: 'Iphone 11 128 GB',
-          price: '5000.00',
-          updatedAt: '08/05/2002',
-        }}
-      />,
-    )
-
-    const { findByTestId: findByTestIdHeader } = render(
+  it('should render trigger offcanvas', async () => {
+    const { findByTestId } = render(
       <ProductsContextProvider>
         <DialogContextProvider>
           <Header />
-        </DialogContextProvider>
-      </ProductsContextProvider>,
-    )
-
-    const { findByText } = render(
-      <ProductsContextProvider>
-        <DialogContextProvider>
+          <CardItemShopping
+            item={{
+              brand: 'Apple',
+              createdAt: '01/01/1969',
+              description: 'Ótimos vídeos',
+              id: 1,
+              photo:
+                'https://mks-sistemas.nyc3.digitaloceanspaces.com/products/airpods.webp',
+              name: 'Iphone 11 128 GB',
+              price: '5000.00',
+              updatedAt: '08/05/2002',
+            }}
+          />
           <CartOffcanvas />
         </DialogContextProvider>
       </ProductsContextProvider>,
     )
 
-    const productButton = await findByTestIdCartItem('product-button')
+    expect(await findByTestId('cart-button')).toBeInTheDocument()
+  })
+  it('should a new product in cart', async () => {
+    userEvent.setup()
 
-    userEvent.click(productButton)
+    const { debug, findByTestId } = render(
+      <ProductsContextProvider>
+        <DialogContextProvider>
+          <Header />
+          <CardItemShopping
+            item={{
+              brand: 'Apple',
+              createdAt: '01/01/1969',
+              description: 'Ótimos vídeos',
+              id: 1,
+              photo:
+                'https://mks-sistemas.nyc3.digitaloceanspaces.com/products/airpods.webp',
+              name: 'Iphone 11 128 GB',
+              price: '5000.00',
+              updatedAt: '08/05/2002',
+            }}
+          />
+          <CartOffcanvas />
+        </DialogContextProvider>
+      </ProductsContextProvider>,
+    )
 
-    const cartButton = await findByTestIdHeader('cart-button')
+    fireEvent.click(
+      await screen.findByTestId('product-button'),
+      new MouseEvent('click', {
+        bubbles: true,
+        cancelable: true,
+      }),
+    )
 
-    userEvent.click(cartButton)
-
-    // expect(await findByText('Finalizar compra')).toBeInTheDocument()
+    fireEvent.click(await screen.findByTestId('cart-button'), {})
+    expect(await findByTestId('total-cart')).toBeInTheDocument()
   })
 })
